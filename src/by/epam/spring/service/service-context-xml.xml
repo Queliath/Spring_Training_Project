@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="messageReceiver" class="by.epam.spring.service.impl.ConfigurableMessageReceiver">
+        <constructor-arg name="message" value="Hello from config!"/>
+    </bean>
+    <bean id="messageRenderer" class="by.epam.spring.service.impl.ConsoleMessageRenderer">
+        <property name="messageReceiver" ref="messageReceiver"/>
+    </bean>
+</beans>

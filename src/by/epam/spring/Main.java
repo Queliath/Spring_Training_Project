@@ -1,20 +1,30 @@
 package by.epam.spring;
 
-import by.epam.spring.abstraction.MessageRenderer;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import by.epam.spring.command.Command;
+import by.epam.spring.command.helper.CommandHelper;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 /**
  * Created by Uladzislau_Kastsevic on 11/21/2016.
  */
 public class Main {
-    private static final String APPLICATION_CONTEXT_XML_FILE_PATH = "app-context-xml.xml";
-    private static final String APPLICATION_CONTEXT_ANNOTATION_FILE_PATH = "app-context-annotation.xml";
 
     public static void main(String[] args){
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext(APPLICATION_CONTEXT_ANNOTATION_FILE_PATH);
-        MessageRenderer messageRenderer = applicationContext.getBean("messageRenderer", MessageRenderer.class);
+        GenericXmlApplicationContext serviceContext = new GenericXmlApplicationContext();
+        serviceContext.load("by/epam/spring/service/service-context-xml.xml");
+        serviceContext.refresh();
 
-        messageRenderer.render();
+        GenericXmlApplicationContext commandContext = new GenericXmlApplicationContext();
+        commandContext.load("by/epam/spring/command/command-context-xml.xml");
+        commandContext.setParent(serviceContext);
+        commandContext.refresh();
+
+        CommandHelper commandHelper = commandContext.getBean("commandHelper", CommandHelper.class);
+
+        Command printCommand = commandHelper.getCommand("print");
+        Command doublePrintCommand = commandHelper.getCommand("doublePrint");
+
+        printCommand.execute();
+        doublePrintCommand.execute();
     }
 }

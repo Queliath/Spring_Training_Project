@@ -1,7 +1,6 @@
-package by.epam.spring.impl;
+package by.epam.spring.service.impl;
 
-import by.epam.spring.abstraction.MessageReceiver;
-import org.springframework.stereotype.Service;
+import by.epam.spring.service.abstraction.MessageReceiver;
 
 /**
  * Created by Uladzislau_Kastsevic on 11/21/2016.

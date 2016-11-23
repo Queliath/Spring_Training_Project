@@ -1,8 +1,7 @@
-package by.epam.spring.impl;
+package by.epam.spring.service.impl;
 
-import by.epam.spring.abstraction.MessageReceiver;
-import by.epam.spring.abstraction.MessageRenderer;
-import org.springframework.beans.factory.annotation.Autowired;
+import by.epam.spring.service.abstraction.MessageReceiver;
+import by.epam.spring.service.abstraction.MessageRenderer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
