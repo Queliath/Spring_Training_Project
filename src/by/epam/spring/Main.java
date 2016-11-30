@@ -10,6 +10,10 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 public class Main {
 
     public static void main(String[] args){
+        GenericXmlApplicationContext applicationContext = new GenericXmlApplicationContext();
+        applicationContext.load("by/epam/spring/application-context.xml");
+        applicationContext.refresh();
+
         GenericXmlApplicationContext serviceContext = new GenericXmlApplicationContext();
         serviceContext.load("by/epam/spring/service/service-context-xml.xml");
         serviceContext.refresh();
