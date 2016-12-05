@@ -1,16 +1,31 @@
 package by.epam.jdbc.domain;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
 /**
  * Created by Uladzislau_Kastsevic on 11/30/2016.
  */
+@Entity
+@Table(name = "contact_tel_detail")
 public class ContactTelDetail implements Serializable {
     private Long id;
-    private Long contactId;
+    private int version;
     private String telType;
     private String telNumber;
+    private Contact contact;
 
+    public ContactTelDetail() {
+    }
+
+    public ContactTelDetail(String telType, String telNumber) {
+        this.telType = telType;
+        this.telNumber = telNumber;
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     public Long getId() {
         return id;
     }
@@ -19,14 +34,17 @@ public class ContactTelDetail implements Serializable {
         this.id = id;
     }
 
-    public Long getContactId() {
-        return contactId;
+    @Version
+    @Column(name = "version")
+    public int getVersion() {
+        return version;
     }
 
-    public void setContactId(Long contactId) {
-        this.contactId = contactId;
+    public void setVersion(int version) {
+        this.version = version;
     }
 
+    @Column(name = "tel_type")
     public String getTelType() {
         return telType;
     }
@@ -35,6 +53,7 @@ public class ContactTelDetail implements Serializable {
         this.telType = telType;
     }
 
+    @Column(name = "tel_number")
     public String getTelNumber() {
         return telNumber;
     }
@@ -43,11 +62,20 @@ public class ContactTelDetail implements Serializable {
         this.telNumber = telNumber;
     }
 
+    @ManyToOne
+    @JoinColumn(name = "contact_id")
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
     @Override
     public String toString() {
         return "ContactTelDetail{" +
                 "id=" + id +
-                ", contactId=" + contactId +
                 ", telType='" + telType + '\'' +
                 ", telNumber='" + telNumber + '\'' +
                 '}';
